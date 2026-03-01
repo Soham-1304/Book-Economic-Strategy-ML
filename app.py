@@ -14,7 +14,7 @@ scaler = pickle.load(open("scaler.pkl", "rb"))
 st.title("📚 Book Economic Success Predictor")
 
 # -------------------------
-# Session State
+# Initialize Session State Once
 # -------------------------
 if "rating" not in st.session_state:
     st.session_state.rating = 4.2
@@ -23,7 +23,7 @@ if "rating" not in st.session_state:
     st.session_state.review_length = 800
 
 # -------------------------
-# Sample Inputs (Compact)
+# Sample Inputs
 # -------------------------
 st.markdown("### Try Sample Scenarios")
 
@@ -50,24 +50,34 @@ if c3.button("Niche"):
 st.divider()
 
 # -------------------------
-# Inputs (2x2 Grid)
+# Inputs (Use Keys Only)
 # -------------------------
 left, right = st.columns(2)
 
 with left:
-    st.session_state.rating = st.slider(
-        "Average Rating", 1.0, 5.0, st.session_state.rating
+    rating = st.slider(
+        "Average Rating", 1.0, 5.0,
+        key="rating"
     )
-    st.session_state.helpfulness = st.slider(
-        "Helpfulness Ratio", 0.0, 1.0, st.session_state.helpfulness
+
+    helpfulness = st.slider(
+        "Helpfulness Ratio", 0.0, 1.0,
+        key="helpfulness"
     )
 
 with right:
-    st.session_state.review_count = st.number_input(
-        "Review Count", min_value=0, value=st.session_state.review_count
+    review_count = st.number_input(
+        "Review Count",
+        min_value=0,
+        step=1,
+        key="review_count"
     )
-    st.session_state.review_length = st.number_input(
-        "Review Length (chars)", min_value=0, value=st.session_state.review_length
+
+    review_length = st.number_input(
+        "Review Length (chars)",
+        min_value=0,
+        step=10,
+        key="review_length"
     )
 
 st.divider()
@@ -77,14 +87,14 @@ st.divider()
 # -------------------------
 if st.button("🔍 Predict Economic Success"):
 
-    log_review_count = np.log1p(st.session_state.review_count)
-    log_review_length = np.log1p(st.session_state.review_length)
-    interaction = st.session_state.rating * log_review_count
+    log_review_count = np.log1p(review_count)
+    log_review_length = np.log1p(review_length)
+    interaction = rating * log_review_count
 
     features = np.array([[ 
-        st.session_state.rating,
+        rating,
         log_review_count,
-        st.session_state.helpfulness,
+        helpfulness,
         log_review_length,
         interaction
     ]])
@@ -101,11 +111,11 @@ if st.button("🔍 Predict Economic Success"):
         st.error(f"Low Economic Success Probability: {probability:.2f}")
 
     # Segment interpretation
-    if st.session_state.rating >= 4.5 and st.session_state.review_count > 20:
+    if rating >= 4.5 and review_count > 20:
         segment = "Mass Market Leader"
-    elif st.session_state.rating < 3:
+    elif rating < 3:
         segment = "Risk Segment"
-    elif st.session_state.review_count < 5:
+    elif review_count < 5:
         segment = "Premium / Niche"
     else:
         segment = "Trusted Quality"
