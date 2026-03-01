@@ -48,14 +48,30 @@ Final Logistic Regression Accuracy: **94%**
 | **Actual Not Successful** | 3230                     | 101                  |
 | **Actual Successful**     | 292                      | 2728                 |
 
+## 📈 Model Performance
+
+Final Logistic Regression Accuracy: **93.8%**
+
+### Performance Metrics
+
+- **Precision:** 96.4%
+- **Recall:** 90.3%
+- **F1 Score:** 93.28%
+- **ROC-AUC:** 0.985
+
+### Confusion Matrix
+
+|                      | Predicted Not Successful | Predicted Successful |
+|----------------------|--------------------------|----------------------|
+| **Actual Not Successful** | 3230                     | 101                  |
+| **Actual Successful**     | 292                      | 2728                 |
+
 ### Interpretation
 
-- **True Negatives (3230):** Correctly identified unsuccessful books  
-- **True Positives (2728):** Correctly identified successful books  
-- **False Positives (101):** Predicted success but actually unsuccessful  
-- **False Negatives (292):** Missed successful books  
-
-The strong diagonal dominance indicates high predictive reliability.
+- The model demonstrates strong class separation (ROC-AUC ≈ 0.99).
+- High precision indicates low risk of misclassifying weak books as successful.
+- High recall ensures most successful books are correctly identified.
+- The strong diagonal dominance in the confusion matrix confirms reliable predictive performance.
 
 ---
 
