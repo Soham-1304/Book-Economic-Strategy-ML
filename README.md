@@ -39,17 +39,6 @@ https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews
 
 ## 📈 Model Performance
 
-Final Logistic Regression Accuracy: **94%**
-
-### Confusion Matrix
-
-|                      | Predicted Not Successful | Predicted Successful |
-|----------------------|--------------------------|----------------------|
-| **Actual Not Successful** | 3230                     | 101                  |
-| **Actual Successful**     | 292                      | 2728                 |
-
-## 📈 Model Performance
-
 Final Logistic Regression Accuracy: **93.8%**
 
 ### Performance Metrics
